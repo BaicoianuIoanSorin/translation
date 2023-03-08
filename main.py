@@ -4,6 +4,7 @@ from tqdm import tqdm
 import time
 import multiprocessing
 import random
+from unidecode import unidecode
 
 # Open JSON file and load data
 with open("data.json", "r", encoding="utf-8") as json_file:
@@ -21,13 +22,13 @@ def translate_text(key, value):
             # Add a delay between requests
             time.sleep(random.uniform(0.5, 2.0))
             result = translate_client.translate(ru_text, target_language="ro")
-            translated_text = result["translatedText"]
+            # Exclude special characters and replace diacritics
+            translated_text = unidecode(''.join(e for e in result["translatedText"] if e.isalnum() or e.isspace() or e=="№"))
             value["ro"] = translated_text
         except Exception as e:
             print("Translation failed:", e)
             translated_text = None
     return key, value
-
 
 if __name__ == '__main__':
     # Start timer
