@@ -44,5 +44,5 @@ if __name__ == '__main__':
     print(f"Elapsed time: {elapsed_time:.2f} seconds")
 
     # Output the updated JSON data to a new file
-    with open("updated_data_before.json", "w", encoding="utf-8") as json_file:
+    with open("updated_after_first_part.json", "w", encoding="utf-8") as json_file:
         json.dump(data, json_file, ensure_ascii=False, indent=2)
